@@ -1,0 +1,127 @@
+//
+// Site Containers
+//
+.site-inner,
+.wrap {
+  &:extend( .container );
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.site-inner {
+  clear: both;
+  padding-top: 40px;
+}
+
+//
+// Site Layout Column Widths and Positions
+//
+// @todo convert content/sidebar body classes to use SMACSS 'l-' prefix
+//
+.content-sidebar-wrap {
+  .make-row();
+}
+
+.content {
+
+  .full-width-content & {
+    .make-xs-column( 12 );
+  }
+
+  .content-sidebar &,
+  .sidebar-content & {
+    .make-md-column( 9 );
+  }
+
+  .sidebar-content & {
+    .make-md-column-push( 3 );
+  }
+
+  .content-sidebar-sidebar &,
+  .sidebar-content-sidebar &,
+  .sidebar-sidebar-content & {
+    .make-md-column( 9 );
+    .make-lg-column( 7 );
+  }
+
+  .sidebar-content-sidebar & {
+    .make-lg-column-push( 2 );
+  }
+
+  .sidebar-sidebar-content & {
+    .make-md-column-push( 3 );
+    .make-lg-column-push( 5 );
+  }
+}
+
+.sidebar-primary {
+
+  .content-sidebar &,
+  .sidebar-content &,
+  .content-sidebar-sidebar &,
+  .sidebar-content-sidebar &,
+  .sidebar-sidebar-content & {
+    .make-xs-column( 12 );
+    .make-md-column( 3 );
+  }
+
+  .sidebar-content & {
+    .make-md-column-pull( 9 );
+  }
+
+  .sidebar-content-sidebar & {
+    .make-lg-column-push( 2 );
+  }
+
+  .sidebar-sidebar-content & {
+    .make-md-column-pull( 9 );
+    .make-lg-column-pull( 5 );
+  }
+}
+
+.sidebar-secondary {
+
+  .content-sidebar-sidebar &,
+  .sidebar-content-sidebar &,
+  .sidebar-sidebar-content & {
+    .make-xs-column( 12 );
+    .make-lg-column( 2 );
+
+    clear: both;
+
+    @media( min-width: @screen-lg-min ) {
+      clear: none;
+    }
+  }
+
+  .sidebar-content-sidebar &,
+  .sidebar-sidebar-content & {
+    .make-lg-column-pull( 10 );
+  }
+}
+
+//
+// Footer Widgets Columns
+//
+.footer-widgets {
+
+  .inner-wrap {
+    .make-row();
+  }
+
+  .widget-area {
+    .make-xs-column( 12 );
+  }
+}
+
+.make-footer-widget-area-columns( 4 );
+
+.make-footer-widget-area-columns( @n, @i: 1 ) when ( @i <= @n ) {
+
+  .footer-widgets.active-@{i} .widget-area {
+    .make-md-column( (@grid-columns / @i) );
+  }
+
+  .make-footer-widget-area-columns( @n, (@i + 1) );
+
+}

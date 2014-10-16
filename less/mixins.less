@@ -1,0 +1,20 @@
+//
+// Simple/Quick Media Query Mixin (mobile-first approach)
+//
+// @min   - min-width media query value
+// @max   - max-width media query value
+// @rules - CSS rule set to be applied within the @min/@max bounds
+//
+// Compatibility untested.
+//
+.mq( @min, @rules ) {
+  @media (min-width: @min) {
+    @rules();
+  }
+}
+
+.mq( @min, @max, @rules ) {
+  @media (min-width: @min) and (max-width: @max) {
+    @rules();
+  }
+}

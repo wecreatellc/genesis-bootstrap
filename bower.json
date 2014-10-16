@@ -1,0 +1,9 @@
+{
+  "name": "genesis-bootstrap",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "3.2.0",
+    "wp-bootstrap-navwalker": "twittem/wp-bootstrap-navwalker"
+  },
+  "private": true
+}
