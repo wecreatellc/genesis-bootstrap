@@ -4,6 +4,7 @@ var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var header = require('gulp-header');
+var bust = require('gulp-buster');
 //var path = require('path');
 
 var filesToWatch = [
@@ -43,7 +44,10 @@ gulp.task('compile-less', function() {
 
     .pipe( gulp.dest('./css') )
 
-    .pipe( notify('LTBP Build Completed') );
+    .pipe( bust() )                                  // pipe generated files into gulp-buster
+    .pipe( gulp.dest('./cache') )  // output busters.json to theme css folder
+
+    .pipe( notify('LESS Compiled') );
 });
 
 

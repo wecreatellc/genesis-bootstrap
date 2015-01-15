@@ -27,6 +27,18 @@ add_theme_support( 'genesis-footer-widgets', 3 );
 //* Dequeue main stylesheet in favor of new compiled one(s) in /css - DOESN'T WORK
 //remove_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet' );
 
+// Cache busting
+if ( class_exists( 'WeCreate_Cache_Buster' ) ) {
+  $config = array(
+      'rootPath'        => content_url() .'/',
+      //'rootPath'        => '//'.$_SERVER['HTTP_HOST'].'/wp-content/',
+      'cssTemplate'     => '<link href="{{ROOT_PATH}}/{{FILE_PATH}}/{{FILE_NAME}}.{{HASH}}.css" rel="stylesheet">',
+      'jsTemplate'      => '<script src="{{ROOT_PATH}}/{{FILE_PATH}}/{{FILE_NAME}}.{{HASH}}.js"></script>',
+      'bustersJsonPath' => get_stylesheet_directory() .'/cache/busters.json',
+  );
+  $onex_net_theme_buster = new WeCreate_Cache_Buster( $config );
+}
+
 add_action( 'wp_enqueue_scripts', 'gb_enqueue_main_stylesheet' );
 /**
  * Enqueue compiled stylesheet(s)
@@ -37,10 +49,17 @@ add_action( 'wp_enqueue_scripts', 'gb_enqueue_main_stylesheet' );
  */
 function gb_enqueue_main_stylesheet() {
 
-  $version = defined( 'CHILD_THEME_VERSION' ) && CHILD_THEME_VERSION ? CHILD_THEME_VERSION : PARENT_THEME_VERSION;
+  // Genesis's old way of determining css version
+  //$version = defined( 'CHILD_THEME_VERSION' ) && CHILD_THEME_VERSION ? CHILD_THEME_VERSION : PARENT_THEME_VERSION;
   $handle  = defined( 'CHILD_THEME_NAME' ) && CHILD_THEME_NAME ? sanitize_title_with_dashes( CHILD_THEME_NAME ) : 'child-theme';
 
-  wp_enqueue_style( $handle. '-new', get_stylesheet_directory_uri() .'/css/style.compiled.css', false, $version );
+  // Main Style
+  $ver_hash = '1.0.0';
+  if ( isset( $onex_net_theme_buster ) ) {
+    $ver_hash = $onex_net_theme_buster->getHashByFilename( get_stylesheet_directory() . '/css/style.compiled.css' );
+  }
+
+  wp_enqueue_style( $handle. '-new', get_stylesheet_directory_uri() .'/css/style.compiled.css', false, $ver_hash );
 
 }
 

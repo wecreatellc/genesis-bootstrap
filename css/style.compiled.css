@@ -7154,6 +7154,9 @@ p.entry-meta {
 .archive-pagination .active a {
   background-color: #e5554e;
 }
+.entry-content .search-form {
+  width: 50%;
+}
 .comment-respond,
 .entry-comments,
 .entry-pings {
@@ -7209,9 +7212,6 @@ li.comment {
   background-color: #f5f5f5;
   font-size: 16px;
   padding: 24px;
-}
-.entry-content .search-form {
-  width: 50%;
 }
 .sidebar {
   font-size: 16px;
