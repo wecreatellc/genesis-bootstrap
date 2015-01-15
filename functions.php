@@ -24,8 +24,8 @@ add_theme_support( 'genesis-responsive-viewport' );
 //* Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 3 );
 
-//* Dequeue main stylesheet in favor of new compiled one(s) in /css - DOESN'T WORK
-//remove_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet' );
+//* Dequeue main stylesheet in favor of new compiled one(s) in /css
+remove_action( 'genesis_meta', 'genesis_load_stylesheet' );
 
 /**
  * Cache busting
