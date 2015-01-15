@@ -27,11 +27,13 @@ add_theme_support( 'genesis-footer-widgets', 3 );
 //* Dequeue main stylesheet in favor of new compiled one(s) in /css - DOESN'T WORK
 //remove_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet' );
 
-// Cache busting
+/**
+ * Cache busting
+ * See https://github.com/zlanich/wecreate-cache-buster
+ */
 if ( class_exists( 'WeCreate_Cache_Buster' ) ) {
   $config = array(
       'rootPath'        => content_url() .'/',
-      //'rootPath'        => '//'.$_SERVER['HTTP_HOST'].'/wp-content/',
       'cssTemplate'     => '<link href="{{ROOT_PATH}}/{{FILE_PATH}}/{{FILE_NAME}}.{{HASH}}.css" rel="stylesheet">',
       'jsTemplate'      => '<script src="{{ROOT_PATH}}/{{FILE_PATH}}/{{FILE_NAME}}.{{HASH}}.js"></script>',
       'bustersJsonPath' => get_stylesheet_directory() .'/cache/busters.json',
